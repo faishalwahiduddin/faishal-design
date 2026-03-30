@@ -17,18 +17,14 @@ class TrendIndicator extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.remove,
-            size: 16,
-            color: Colors.grey,
-          ),
+          const Icon(Icons.remove, size: 16, color: Colors.grey),
           const SizedBox(width: 4),
           Text(
             '0.0%',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       );
@@ -48,18 +44,14 @@ class TrendIndicator extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            size: 14,
-            color: color,
-          ),
+          Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
           Text(
             '${percentChange.abs().toStringAsFixed(1)}%',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

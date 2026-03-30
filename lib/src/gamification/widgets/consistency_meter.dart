@@ -27,13 +27,11 @@ class _ConsistencyMeterState extends State<ConsistencyMeter>
       vsync: this,
       duration: const Duration(seconds: 1),
     );
-    
-    _animation = Tween<double>(begin: 0.0, end: widget.consistency).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: widget.consistency,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
     _controller.forward();
   }
@@ -42,12 +40,13 @@ class _ConsistencyMeterState extends State<ConsistencyMeter>
   void didUpdateWidget(covariant ConsistencyMeter oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.consistency != oldWidget.consistency) {
-      _animation = Tween<double>(begin: _animation.value, end: widget.consistency).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Curves.easeOutCubic,
-        ),
-      );
+      _animation =
+          Tween<double>(
+            begin: _animation.value,
+            end: widget.consistency,
+          ).animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+          );
       _controller
         ..reset()
         ..forward();
@@ -69,7 +68,7 @@ class _ConsistencyMeterState extends State<ConsistencyMeter>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return SizedBox(
       width: widget.size,
       height: widget.size,
@@ -159,7 +158,7 @@ class _GaugePainter extends CustomPainter {
 
     // Draw foreground arc
     final actualSweep = sweepAngle * value.clamp(0.0, 1.0);
-    
+
     if (actualSweep > 0) {
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
@@ -173,8 +172,8 @@ class _GaugePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _GaugePainter oldDelegate) {
-    return oldDelegate.value != value || 
-           oldDelegate.color != color || 
-           oldDelegate.backgroundColor != backgroundColor;
+    return oldDelegate.value != value ||
+        oldDelegate.color != color ||
+        oldDelegate.backgroundColor != backgroundColor;
   }
 }
