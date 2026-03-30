@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class StreakFlame extends StatefulWidget {
   final int streakDays;
 
-  const StreakFlame({
-    super.key,
-    required this.streakDays,
-  });
+  const StreakFlame({super.key, required this.streakDays});
 
   @override
   State<StreakFlame> createState() => _StreakFlameState();
@@ -25,12 +22,10 @@ class _StreakFlameState extends State<StreakFlame>
       duration: const Duration(seconds: 1),
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.9,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     if (widget.streakDays > 0) {
       _controller.repeat(reverse: true);
@@ -56,12 +51,12 @@ class _StreakFlameState extends State<StreakFlame>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     // Scale flame icon based on streak size (maxes out around 30 days)
     final double baseSize = 48.0;
     final double bonusSize = (widget.streakDays / 30).clamp(0.0, 1.0) * 24.0;
     final double iconSize = baseSize + bonusSize;
-    
+
     final bool isActive = widget.streakDays > 0;
     final Color flameColor = isActive ? Colors.deepOrange : Colors.grey;
 
@@ -74,7 +69,9 @@ class _StreakFlameState extends State<StreakFlame>
             return Transform.scale(
               scale: isActive ? _scaleAnimation.value : 1.0,
               child: Icon(
-                isActive ? Icons.local_fire_department : Icons.local_fire_department_outlined,
+                isActive
+                    ? Icons.local_fire_department
+                    : Icons.local_fire_department_outlined,
                 size: iconSize,
                 color: flameColor,
               ),

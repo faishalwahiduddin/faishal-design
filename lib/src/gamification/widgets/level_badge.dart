@@ -5,11 +5,7 @@ class LevelBadge extends StatelessWidget {
   final int level;
   final String titleId;
 
-  const LevelBadge({
-    super.key,
-    required this.level,
-    required this.titleId,
-  });
+  const LevelBadge({super.key, required this.level, required this.titleId});
 
   @override
   Widget build(BuildContext context) {

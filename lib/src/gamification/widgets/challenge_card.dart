@@ -19,7 +19,9 @@ class ChallengeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final double completionProgress = target > 0 ? (progress / target).clamp(0.0, 1.0) : 0.0;
+    final double completionProgress = target > 0
+        ? (progress / target).clamp(0.0, 1.0)
+        : 0.0;
     final bool isCompleted = progress >= target;
 
     return Card(
@@ -44,12 +46,17 @@ class ChallengeCard extends StatelessWidget {
                     title,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: isActive ? theme.colorScheme.onSurface : theme.colorScheme.onSurfaceVariant,
+                      color: isActive
+                          ? theme.colorScheme.onSurface
+                          : theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(20),
@@ -92,7 +99,9 @@ class ChallengeCard extends StatelessWidget {
                 Text(
                   isCompleted ? 'Completed' : 'In Progress',
                   style: theme.textTheme.labelMedium?.copyWith(
-                    color: isCompleted ? Colors.green : theme.colorScheme.onSurfaceVariant,
+                    color: isCompleted
+                        ? Colors.green
+                        : theme.colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

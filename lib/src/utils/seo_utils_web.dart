@@ -14,12 +14,12 @@ class SeoUtils {
       web.document.title = title;
       _updateMetaTag('property', 'og:title', title);
     }
-    
+
     if (description != null) {
       _updateMetaTag('name', 'description', description);
       _updateMetaTag('property', 'og:description', description);
     }
-    
+
     if (ogImage != null) {
       _updateMetaTag('property', 'og:image', ogImage);
     }
@@ -48,12 +48,18 @@ class SeoUtils {
     scriptEl.text = jsonEncode(data);
   }
 
-  static void _updateMetaTag(String attributeName, String attributeValue, String content) {
+  static void _updateMetaTag(
+    String attributeName,
+    String attributeValue,
+    String content,
+  ) {
     final head = web.document.head;
     if (head == null) return;
-    
+
     web.HTMLMetaElement? metaEl;
-    final tags = head.querySelectorAll('meta[$attributeName="$attributeValue"]');
+    final tags = head.querySelectorAll(
+      'meta[$attributeName="$attributeValue"]',
+    );
     if (tags.length > 0) {
       metaEl = tags.item(0) as web.HTMLMetaElement;
     } else {
@@ -61,16 +67,22 @@ class SeoUtils {
       metaEl.setAttribute(attributeName, attributeValue);
       head.append(metaEl);
     }
-    
+
     metaEl.content = content;
   }
 
-  static void _updateLinkTag(String attributeName, String attributeValue, String href) {
+  static void _updateLinkTag(
+    String attributeName,
+    String attributeValue,
+    String href,
+  ) {
     final head = web.document.head;
     if (head == null) return;
 
     web.HTMLLinkElement? linkEl;
-    final tags = head.querySelectorAll('link[$attributeName="$attributeValue"]');
+    final tags = head.querySelectorAll(
+      'link[$attributeName="$attributeValue"]',
+    );
     if (tags.length > 0) {
       linkEl = tags.item(0) as web.HTMLLinkElement;
     } else {

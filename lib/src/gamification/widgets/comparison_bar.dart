@@ -18,7 +18,7 @@ class ComparisonBar extends StatelessWidget {
 
     final theme = Theme.of(context);
     final total = data.values.fold(0.0, (sum, val) => sum + val);
-    
+
     // Sort keys alphabetically or any specific order you need
     final keys = data.keys.toList();
 
@@ -41,10 +41,7 @@ class ComparisonBar extends StatelessWidget {
 
                 return Expanded(
                   flex: (percentage * 1000).toInt(),
-                  child: Container(
-                    color: color,
-                    height: height,
-                  ),
+                  child: Container(color: color, height: height),
                 );
               }).toList(),
             ),
