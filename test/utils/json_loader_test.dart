@@ -16,22 +16,36 @@ void main() {
       // Mock rootBundle responses
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMessageHandler('flutter/assets', (ByteData? message) async {
-        if (message == null) return null;
-        final String key = utf8.decode(message.buffer.asUint8List());
-        
-        if (key == validObjectAsset) {
-          final ByteData data = ByteData.view(Uint8List.fromList(utf8.encode('{"id": 1, "name": "test"}')).buffer);
-          return data;
-        } else if (key == validListAsset) {
-          final ByteData data = ByteData.view(Uint8List.fromList(utf8.encode('[{"id": 1, "name": "test1"}, {"id": 2, "name": "test2"}]')).buffer);
-          return data;
-        } else if (key == malformedAsset) {
-          final ByteData data = ByteData.view(Uint8List.fromList(utf8.encode('{"id": 1, "name": "test"')).buffer); // missing closing brace
-          return data;
-        }
-        
-        return null; // Return null for missing files
-      });
+            if (message == null) return null;
+            final String key = utf8.decode(message.buffer.asUint8List());
+
+            if (key == validObjectAsset) {
+              final ByteData data = ByteData.view(
+                Uint8List.fromList(
+                  utf8.encode('{"id": 1, "name": "test"}'),
+                ).buffer,
+              );
+              return data;
+            } else if (key == validListAsset) {
+              final ByteData data = ByteData.view(
+                Uint8List.fromList(
+                  utf8.encode(
+                    '[{"id": 1, "name": "test1"}, {"id": 2, "name": "test2"}]',
+                  ),
+                ).buffer,
+              );
+              return data;
+            } else if (key == malformedAsset) {
+              final ByteData data = ByteData.view(
+                Uint8List.fromList(
+                  utf8.encode('{"id": 1, "name": "test"'),
+                ).buffer,
+              ); // missing closing brace
+              return data;
+            }
+
+            return null; // Return null for missing files
+          });
     });
 
     test('load parses a valid JSON object', () async {
@@ -46,14 +60,12 @@ void main() {
 
     test('load throws Exception for missing asset', () async {
       expect(
-        () => JsonLoader.load<Map<String, dynamic>>(
-          invalidAsset,
-          (json) => json,
-        ),
+        () =>
+            JsonLoader.load<Map<String, dynamic>>(invalidAsset, (json) => json),
         throwsException,
       );
     });
-    
+
     test('load throws Exception for malformed JSON', () async {
       expect(
         () => JsonLoader.load<Map<String, dynamic>>(
@@ -86,7 +98,7 @@ void main() {
         throwsException,
       );
     });
-    
+
     test('loadList throws Exception for malformed JSON', () async {
       expect(
         () => JsonLoader.loadList<Map<String, dynamic>>(

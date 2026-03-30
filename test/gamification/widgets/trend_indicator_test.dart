@@ -5,20 +5,14 @@ import 'package:faishal_design/src/gamification/widgets/trend_indicator.dart';
 void main() {
   Widget buildTestWidget({required Widget child}) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: child,
-        ),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 
   group('TrendIndicator Widget', () {
     testWidgets('renders positive trend', (WidgetTester tester) async {
       await tester.pumpWidget(
-        buildTestWidget(
-          child: const TrendIndicator(percentChange: 5.5),
-        ),
+        buildTestWidget(child: const TrendIndicator(percentChange: 5.5)),
       );
 
       expect(find.text('5.5%'), findsOneWidget);
@@ -27,9 +21,7 @@ void main() {
 
     testWidgets('renders negative trend', (WidgetTester tester) async {
       await tester.pumpWidget(
-        buildTestWidget(
-          child: const TrendIndicator(percentChange: -2.0),
-        ),
+        buildTestWidget(child: const TrendIndicator(percentChange: -2.0)),
       );
 
       expect(find.text('2.0%'), findsOneWidget);
@@ -38,9 +30,7 @@ void main() {
 
     testWidgets('renders zero change', (WidgetTester tester) async {
       await tester.pumpWidget(
-        buildTestWidget(
-          child: const TrendIndicator(percentChange: 0.0),
-        ),
+        buildTestWidget(child: const TrendIndicator(percentChange: 0.0)),
       );
 
       expect(find.text('0.0%'), findsOneWidget);

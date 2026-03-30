@@ -1,0 +1,52 @@
+diff a/lib/src/gamification/widgets/consistency_meter.dart b/lib/src/gamification/widgets/consistency_meter.dart	(rejected hunks)
+@@ -27,13 +27,11 @@ class _ConsistencyMeterState extends State<ConsistencyMeter>
+       vsync: this,
+       duration: const Duration(seconds: 1),
+     );
+-    
+-    _animation = Tween<double>(begin: 0.0, end: widget.consistency).animate(
+-      CurvedAnimation(
+-        parent: _controller,
+-        curve: Curves.easeOutCubic,
+-      ),
+-    );
++
++    _animation = Tween<double>(
++      begin: 0.0,
++      end: widget.consistency,
++    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+ 
+     _controller.forward();
+   }
+@@ -42,12 +40,13 @@ class _ConsistencyMeterState extends State<ConsistencyMeter>
+   void didUpdateWidget(covariant ConsistencyMeter oldWidget) {
+     super.didUpdateWidget(oldWidget);
+     if (widget.consistency != oldWidget.consistency) {
+-      _animation = Tween<double>(begin: _animation.value, end: widget.consistency).animate(
+-        CurvedAnimation(
+-          parent: _controller,
+-          curve: Curves.easeOutCubic,
+-        ),
+-      );
++      _animation =
++          Tween<double>(
++            begin: _animation.value,
++            end: widget.consistency,
++          ).animate(
++            CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
++          );
+       _controller
+         ..reset()
+         ..forward();
+@@ -173,8 +172,8 @@ class _GaugePainter extends CustomPainter {
+ 
+   @override
+   bool shouldRepaint(covariant _GaugePainter oldDelegate) {
+-    return oldDelegate.value != value || 
+-           oldDelegate.color != color || 
+-           oldDelegate.backgroundColor != backgroundColor;
++    return oldDelegate.value != value ||
++        oldDelegate.color != color ||
++        oldDelegate.backgroundColor != backgroundColor;
+   }
+ }

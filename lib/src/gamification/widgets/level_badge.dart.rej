@@ -1,0 +1,14 @@
+diff a/lib/src/gamification/widgets/level_badge.dart b/lib/src/gamification/widgets/level_badge.dart	(rejected hunks)
+@@ -5,11 +5,7 @@ class LevelBadge extends StatelessWidget {
+   final int level;
+   final String titleId;
+ 
+-  const LevelBadge({
+-    super.key,
+-    required this.level,
+-    required this.titleId,
+-  });
++  const LevelBadge({super.key, required this.level, required this.titleId});
+ 
+   @override
+   Widget build(BuildContext context) {

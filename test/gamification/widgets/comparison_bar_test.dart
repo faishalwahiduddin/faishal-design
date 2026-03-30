@@ -5,16 +5,14 @@ import 'package:faishal_design/src/gamification/widgets/comparison_bar.dart';
 void main() {
   Widget buildTestWidget({required Widget child}) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: child,
-        ),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 
   group('ComparisonBar Widget', () {
-    testWidgets('renders segments and labels correctly', (WidgetTester tester) async {
+    testWidgets('renders segments and labels correctly', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildTestWidget(
           child: const ComparisonBar(
@@ -31,10 +29,7 @@ void main() {
     testWidgets('renders empty gracefully', (WidgetTester tester) async {
       await tester.pumpWidget(
         buildTestWidget(
-          child: const ComparisonBar(
-            data: {},
-            colors: {},
-          ),
+          child: const ComparisonBar(data: {}, colors: {}),
         ),
       );
 

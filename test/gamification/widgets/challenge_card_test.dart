@@ -5,11 +5,7 @@ import 'package:faishal_design/src/gamification/widgets/challenge_card.dart';
 void main() {
   Widget buildTestWidget({required Widget child}) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: child,
-        ),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 
@@ -49,8 +45,10 @@ void main() {
 
       expect(find.text('Completed'), findsOneWidget);
       expect(find.text('5 / 5'), findsOneWidget);
-      
-      final indicator = tester.widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator));
+
+      final indicator = tester.widget<LinearProgressIndicator>(
+        find.byType(LinearProgressIndicator),
+      );
       expect(indicator.value, equals(1.0));
     });
   });

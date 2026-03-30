@@ -17,9 +17,10 @@ void main() {
 
     test('setJsonLd executes without error on mobile', () {
       expect(
-        () => SeoUtils.setJsonLd(
-          {'@context': 'https://schema.org', '@type': 'WebSite'},
-        ),
+        () => SeoUtils.setJsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+        }),
         returnsNormally,
       );
     });
