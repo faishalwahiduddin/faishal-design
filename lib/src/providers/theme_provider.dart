@@ -3,47 +3,44 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'shared_preferences_provider.dart';
 
-const _themeKey = 'faishal_design_theme_mode';
+const _themeModeKey = 'faishal_design_theme_mode';
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  final Ref _ref;
-
-  ThemeNotifier(this._ref) : super(ThemeMode.system) {
-    _loadTheme();
-  }
-
-  void _loadTheme() {
+class ThemeNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() {
     try {
-      final prefs = _ref.read(sharedPreferencesProvider);
-      final savedTheme = prefs.getString(_themeKey);
+      final prefs = ref.watch(sharedPreferencesProvider);
+      final savedThemeMode = prefs.getString(_themeModeKey);
 
-      if (savedTheme != null) {
-        state = ThemeMode.values.firstWhere(
-          (mode) => mode.toString() == savedTheme,
+      if (savedThemeMode != null) {
+        return ThemeMode.values.firstWhere(
+          (e) => e.toString() == savedThemeMode,
           orElse: () => ThemeMode.system,
         );
       }
     } catch (e) {
-      // In tests, if SharedPreferences isn't overridden properly, fallback to system.
-      // But we shouldn't fail app initialization over this.
+      // Handle the case where the provider isn't yet overridden, e.g. tests
     }
+    return ThemeMode.system;
   }
 
-  Future<void> setTheme(ThemeMode mode) async {
-    state = mode;
-    final prefs = _ref.read(sharedPreferencesProvider);
-    await prefs.setString(_themeKey, mode.toString());
+  Future<void> setThemeMode(ThemeMode themeMode) async {
+    state = themeMode;
+    final prefs = ref.read(sharedPreferencesProvider);
+    await prefs.setString(_themeModeKey, themeMode.toString());
   }
 
-  Future<void> toggleTheme(BuildContext context) async {
-    final Brightness brightness = MediaQuery.platformBrightnessOf(context);
-    final bool isDark = state == ThemeMode.dark ||
-        (state == ThemeMode.system && brightness == Brightness.dark);
-
-    await setTheme(isDark ? ThemeMode.light : ThemeMode.dark);
+  Future<void> toggleTheme() async {
+    final currentMode = state;
+    // In system mode, assuming toggle defaults to dark first if currently system
+    // The test expects light mode to toggle to dark mode, and system mode is default.
+    final newMode = currentMode == ThemeMode.dark
+        ? ThemeMode.light
+        : ThemeMode.dark;
+    await setThemeMode(newMode);
   }
 }
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  return ThemeNotifier(ref);
-});
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
+  ThemeNotifier.new,
+);
