@@ -7,20 +7,16 @@ import 'package:faishal_design/src/providers/shared_preferences_provider.dart';
 import 'package:faishal_design/src/widgets/language_switcher.dart';
 
 void main() {
-  testWidgets('LanguageSwitcher shows default locale and allows switching', (WidgetTester tester) async {
+  testWidgets('LanguageSwitcher shows default locale and allows switching', (
+    WidgetTester tester,
+  ) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          sharedPreferencesProvider.overrideWithValue(prefs),
-        ],
-        child: const MaterialApp(
-          home: Scaffold(
-            body: LanguageSwitcher(),
-          ),
-        ),
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        child: const MaterialApp(home: Scaffold(body: LanguageSwitcher())),
       ),
     );
 
@@ -51,22 +47,16 @@ void main() {
     expect(prefs.getString('faishal_design_locale'), 'en');
   });
 
-  testWidgets('LanguageSwitcher loads persisted locale', (WidgetTester tester) async {
-    SharedPreferences.setMockInitialValues({
-      'faishal_design_locale': 'ar',
-    });
+  testWidgets('LanguageSwitcher loads persisted locale', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({'faishal_design_locale': 'ar'});
     final prefs = await SharedPreferences.getInstance();
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          sharedPreferencesProvider.overrideWithValue(prefs),
-        ],
-        child: const MaterialApp(
-          home: Scaffold(
-            body: LanguageSwitcher(),
-          ),
-        ),
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        child: const MaterialApp(home: Scaffold(body: LanguageSwitcher())),
       ),
     );
 

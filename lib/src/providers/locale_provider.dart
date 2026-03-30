@@ -16,24 +16,20 @@ const supportedLocales = [
   Locale('ja'), // 日本語
 ];
 
-class LocaleNotifier extends StateNotifier<Locale> {
-  final Ref _ref;
-
-  LocaleNotifier(this._ref) : super(const Locale('id')) {
-    _loadLocale();
-  }
-
-  void _loadLocale() {
+class LocaleNotifier extends Notifier<Locale> {
+  @override
+  Locale build() {
     try {
-      final prefs = _ref.read(sharedPreferencesProvider);
+      final prefs = ref.watch(sharedPreferencesProvider);
       final savedLocale = prefs.getString(_localeKey);
 
       if (savedLocale != null) {
-        state = Locale(savedLocale);
+        return Locale(savedLocale);
       }
     } catch (e) {
       // Handle the case where the provider isn't yet overridden, e.g. tests
     }
+    return const Locale('id');
   }
 
   Future<void> setLocale(Locale locale) async {
@@ -42,11 +38,11 @@ class LocaleNotifier extends StateNotifier<Locale> {
     }
 
     state = locale;
-    final prefs = _ref.read(sharedPreferencesProvider);
+    final prefs = ref.read(sharedPreferencesProvider);
     await prefs.setString(_localeKey, locale.languageCode);
   }
 }
 
-final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>((ref) {
-  return LocaleNotifier(ref);
-});
+final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
+  LocaleNotifier.new,
+);

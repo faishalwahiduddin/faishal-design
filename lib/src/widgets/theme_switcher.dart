@@ -27,7 +27,7 @@ class ThemeSwitcher extends ConsumerWidget {
     return IconButton(
       icon: Icon(getIcon()),
       onPressed: () {
-        ref.read(themeProvider.notifier).toggleTheme(context);
+        ref.read(themeProvider.notifier).toggleTheme();
       },
       tooltip: 'Toggle Theme',
     );
