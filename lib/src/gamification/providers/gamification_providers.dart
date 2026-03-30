@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
 import '../../providers/shared_preferences_provider.dart';
 import '../models/achievement_model.dart';
@@ -26,22 +27,22 @@ final achievementCheckerProvider = Provider<AchievementChecker>((ref) {
   return AchievementChecker(storage, allAchievements: []);
 });
 
-class XpNotifier extends StateNotifier<int> {
-  final GamificationEngine _engine;
-  final GamificationStorage _storage;
-
-  XpNotifier(this._engine, this._storage) : super(_storage.getXp());
+class XpNotifier extends Notifier<int> {
+  @override
+  int build() {
+    return ref.watch(gamificationStorageProvider).getXp();
+  }
 
   Future<void> addXp(String action, {double multiplier = 1.0}) async {
-    await _engine.addXp(action, multiplier: multiplier);
-    state = _storage.getXp();
+    final engine = ref.read(gamificationEngineProvider);
+    final storage = ref.read(gamificationStorageProvider);
+    await engine.addXp(action, multiplier: multiplier);
+    state = storage.getXp();
   }
 }
 
-final xpProvider = StateNotifierProvider<XpNotifier, int>((ref) {
-  final engine = ref.watch(gamificationEngineProvider);
-  final storage = ref.watch(gamificationStorageProvider);
-  return XpNotifier(engine, storage);
+final xpProvider = NotifierProvider<XpNotifier, int>(() {
+  return XpNotifier();
 });
 
 final levelProvider = Provider<LevelModel>((ref) {
@@ -50,59 +51,57 @@ final levelProvider = Provider<LevelModel>((ref) {
   return engine.resolveLevel(xp);
 });
 
-class StreakNotifier extends StateNotifier<StreakModel> {
-  final GamificationEngine _engine;
-  final GamificationStorage _storage;
-
-  StreakNotifier(this._engine, this._storage) : super(_storage.getStreak());
+class StreakNotifier extends Notifier<StreakModel> {
+  @override
+  StreakModel build() {
+    return ref.watch(gamificationStorageProvider).getStreak();
+  }
 
   Future<void> updateStreak(DateTime date) async {
-    await _engine.updateStreak(date);
-    state = _storage.getStreak();
+    final engine = ref.read(gamificationEngineProvider);
+    final storage = ref.read(gamificationStorageProvider);
+    await engine.updateStreak(date);
+    state = storage.getStreak();
   }
 }
 
-final streakProvider = StateNotifierProvider<StreakNotifier, StreakModel>((
-  ref,
-) {
-  final engine = ref.watch(gamificationEngineProvider);
-  final storage = ref.watch(gamificationStorageProvider);
-  return StreakNotifier(engine, storage);
+final streakProvider = NotifierProvider<StreakNotifier, StreakModel>(() {
+  return StreakNotifier();
 });
 
-class AchievementsNotifier extends StateNotifier<List<AchievementModel>> {
-  final AchievementChecker _checker;
-  final GamificationStorage _storage;
-
-  AchievementsNotifier(this._checker, this._storage)
-    : super(_storage.getAchievements());
+class AchievementsNotifier extends Notifier<List<AchievementModel>> {
+  @override
+  List<AchievementModel> build() {
+    return ref.watch(gamificationStorageProvider).getAchievements();
+  }
 
   Future<void> evaluate(Map<String, dynamic> currentState) async {
-    await _checker.evaluateAll(currentState);
-    state = _storage.getAchievements();
+    final checker = ref.read(achievementCheckerProvider);
+    final storage = ref.read(gamificationStorageProvider);
+    await checker.evaluateAll(currentState);
+    state = storage.getAchievements();
   }
 }
 
 final achievementsProvider =
-    StateNotifierProvider<AchievementsNotifier, List<AchievementModel>>((ref) {
-      final checker = ref.watch(achievementCheckerProvider);
-      final storage = ref.watch(gamificationStorageProvider);
-      return AchievementsNotifier(checker, storage);
+    NotifierProvider<AchievementsNotifier, List<AchievementModel>>(() {
+      return AchievementsNotifier();
     });
 
-class ChallengesNotifier extends StateNotifier<List<ChallengeModel>> {
-  final GamificationStorage _storage;
-
-  ChallengesNotifier(this._storage) : super(_storage.getChallenges());
+class ChallengesNotifier extends Notifier<List<ChallengeModel>> {
+  @override
+  List<ChallengeModel> build() {
+    return ref.watch(gamificationStorageProvider).getChallenges();
+  }
 
   Future<void> saveChallenges(List<ChallengeModel> challenges) async {
-    await _storage.saveChallenges(challenges);
-    state = _storage.getChallenges();
+    final storage = ref.read(gamificationStorageProvider);
+    await storage.saveChallenges(challenges);
+    state = storage.getChallenges();
   }
 }
 
 final challengesProvider =
-    StateNotifierProvider<ChallengesNotifier, List<ChallengeModel>>((ref) {
-      final storage = ref.watch(gamificationStorageProvider);
-      return ChallengesNotifier(storage);
+    NotifierProvider<ChallengesNotifier, List<ChallengeModel>>(() {
+      return ChallengesNotifier();
     });

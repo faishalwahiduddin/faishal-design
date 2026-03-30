@@ -5,11 +5,7 @@ import 'package:faishal_design/src/gamification/widgets/stat_tile.dart';
 void main() {
   Widget buildTestWidget({required Widget child}) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: child,
-        ),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 

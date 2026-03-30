@@ -1,0 +1,41 @@
+diff a/lib/src/gamification/widgets/achievement_card.dart b/lib/src/gamification/widgets/achievement_card.dart	(rejected hunks)
+@@ -22,10 +22,12 @@ class AchievementCard extends StatelessWidget {
+   @override
+   Widget build(BuildContext context) {
+     final theme = Theme.of(context);
+-    
++
+     final Color badgeColor = isUnlocked ? tier.color : Colors.grey.shade400;
+-    final Color textColor = isUnlocked ? theme.colorScheme.onSurface : theme.colorScheme.onSurfaceVariant;
+-    
++    final Color textColor = isUnlocked
++        ? theme.colorScheme.onSurface
++        : theme.colorScheme.onSurfaceVariant;
++
+     return Opacity(
+       opacity: isUnlocked ? 1.0 : 0.6,
+       child: Card(
+@@ -45,18 +47,13 @@ class AchievementCard extends StatelessWidget {
+                 width: 56,
+                 height: 56,
+                 decoration: BoxDecoration(
+-                  color: isUnlocked ? badgeColor.withValues(alpha: 0.1) : Colors.grey.shade200,
++                  color: isUnlocked
++                      ? badgeColor.withValues(alpha: 0.1)
++                      : Colors.grey.shade200,
+                   shape: BoxShape.circle,
+-                  border: Border.all(
+-                    color: badgeColor,
+-                    width: 2,
+-                  ),
+-                ),
+-                child: Icon(
+-                  icon,
+-                  size: 32,
+-                  color: badgeColor,
++                  border: Border.all(color: badgeColor, width: 2),
+                 ),
++                child: Icon(icon, size: 32, color: badgeColor),
+               ),
+               const SizedBox(width: 16),
+               Expanded(

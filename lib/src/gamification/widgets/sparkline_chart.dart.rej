@@ -1,0 +1,38 @@
+diff a/lib/src/gamification/widgets/sparkline_chart.dart b/lib/src/gamification/widgets/sparkline_chart.dart	(rejected hunks)
+@@ -24,9 +24,7 @@ class SparklineChart extends StatelessWidget {
+       return SizedBox(
+         height: height,
+         width: width,
+-        child: const Center(
+-          child: Text('No Data'),
+-        ),
++        child: const Center(child: Text('No Data')),
+       );
+     }
+ 
+@@ -83,11 +81,12 @@ class _SparklinePainter extends CustomPainter {
+       minVal -= 1;
+       range = 2;
+     }
+-    
++
+     final double padding = size.height * 0.1;
+     final double usableHeight = size.height - (padding * 2);
+-    
+-    final double stepX = size.width / (data.length - 1 > 0 ? data.length - 1 : 1);
++
++    final double stepX =
++        size.width / (data.length - 1 > 0 ? data.length - 1 : 1);
+ 
+     final path = Path();
+     for (int i = 0; i < data.length; i++) {
+@@ -109,7 +108,7 @@ class _SparklinePainter extends CustomPainter {
+   @override
+   bool shouldRepaint(covariant _SparklinePainter oldDelegate) {
+     return oldDelegate.data != data ||
+-           oldDelegate.lineColor != lineColor ||
+-           oldDelegate.lineWidth != lineWidth;
++        oldDelegate.lineColor != lineColor ||
++        oldDelegate.lineWidth != lineWidth;
+   }
+ }

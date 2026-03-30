@@ -1,0 +1,13 @@
+diff a/lib/src/gamification/widgets/comparison_bar.dart b/lib/src/gamification/widgets/comparison_bar.dart	(rejected hunks)
+@@ -41,10 +41,7 @@ class ComparisonBar extends StatelessWidget {
+ 
+                 return Expanded(
+                   flex: (percentage * 1000).toInt(),
+-                  child: Container(
+-                    color: color,
+-                    height: height,
+-                  ),
++                  child: Container(color: color, height: height),
+                 );
+               }).toList(),
+             ),

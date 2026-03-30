@@ -1,0 +1,33 @@
+diff a/lib/src/gamification/widgets/xp_bar.dart b/lib/src/gamification/widgets/xp_bar.dart	(rejected hunks)
+@@ -4,15 +4,13 @@ class XpBar extends StatelessWidget {
+   final int currentXp;
+   final int targetXp;
+ 
+-  const XpBar({
+-    super.key,
+-    required this.currentXp,
+-    required this.targetXp,
+-  });
++  const XpBar({super.key, required this.currentXp, required this.targetXp});
+ 
+   @override
+   Widget build(BuildContext context) {
+-    final progress = targetXp > 0 ? (currentXp / targetXp).clamp(0.0, 1.0) : 0.0;
++    final progress = targetXp > 0
++        ? (currentXp / targetXp).clamp(0.0, 1.0)
++        : 0.0;
+     final theme = Theme.of(context);
+ 
+     return Column(
+@@ -28,10 +26,7 @@ class XpBar extends StatelessWidget {
+                 fontWeight: FontWeight.bold,
+               ),
+             ),
+-            Text(
+-              '$currentXp / $targetXp',
+-              style: theme.textTheme.bodyMedium,
+-            ),
++            Text('$currentXp / $targetXp', style: theme.textTheme.bodyMedium),
+           ],
+         ),
+         const SizedBox(height: 8),
