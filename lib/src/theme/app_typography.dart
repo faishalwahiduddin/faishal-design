@@ -39,4 +39,16 @@ class AppTypography {
     fontSize: 22,
     fontWeight: FontWeight.w400, // Regular
   );
+
+  static TextStyle get arabicDisplay => GoogleFonts.amiri(
+    fontSize: 36,
+    fontWeight: FontWeight.w400,
+    height: 2.2,
+  );
+
+  static TextStyle get sectionHeader => GoogleFonts.poppins(
+    fontSize: 13,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.26, // 0.02em
+  );
 }

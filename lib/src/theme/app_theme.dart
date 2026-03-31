@@ -15,6 +15,11 @@ class AppTheme {
         onSurface: AppColors.onSurfaceLight,
       ),
       scaffoldBackgroundColor: AppColors.backgroundLight,
+      cardTheme: CardThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge,
         headlineMedium: AppTypography.headlineMedium,
@@ -38,6 +43,11 @@ class AppTheme {
         onSurface: AppColors.onSurfaceDark,
       ),
       scaffoldBackgroundColor: AppColors.backgroundDark,
+      cardTheme: CardThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge,
         headlineMedium: AppTypography.headlineMedium,

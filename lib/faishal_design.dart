@@ -17,3 +17,14 @@ export 'src/utils/seo_utils.dart';
 // Widgets
 export 'src/widgets/theme_switcher.dart';
 export 'src/widgets/language_switcher.dart';
+
+// Reading UI widgets
+export 'src/widgets/tasbih_counter.dart';
+export 'src/widgets/source_badge.dart';
+export 'src/widgets/section_header.dart';
+export 'src/widgets/arabic_text_block.dart';
+export 'src/widgets/islamic_divider.dart';
+export 'src/widgets/reading_card.dart';
+export 'src/widgets/reading_top_bar.dart';
+export 'src/widgets/content_sidebar.dart';
+export 'src/widgets/reading_bottom_sheet.dart';
