@@ -18,6 +18,11 @@ export 'src/utils/seo_utils.dart';
 export 'src/widgets/theme_switcher.dart';
 export 'src/widgets/language_switcher.dart';
 
+// Layout & Scaffold
+export 'src/widgets/responsive_layout.dart';
+export 'src/widgets/app_scaffold.dart';
+export 'src/widgets/rtl_aware.dart';
+
 // Reading UI widgets
 export 'src/widgets/tasbih_counter.dart';
 export 'src/widgets/source_badge.dart';

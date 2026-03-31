@@ -19,7 +19,7 @@ dependencies:
   riverpod_annotation: ^4.0.2
   json_annotation: ^4.11.0
   freezed_annotation: ^3.0.0
-  share_plus: ^10.0.0
+  share_plus: ">=10.0.0 <13.0.0"
   web: ^1.1.1
   intl: ^0.20.2
   state_notifier: ^1.0.0
