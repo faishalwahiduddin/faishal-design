@@ -14,6 +14,11 @@ export 'src/providers/locale_provider.dart';
 export 'src/utils/json_loader.dart';
 export 'src/utils/seo_utils.dart';
 
+// Quran
+export 'src/quran/quran_reference.dart';
+export 'src/quran/quran_passage.dart';
+export 'src/quran/quran_text_repository.dart';
+
 // Widgets
 export 'src/widgets/theme_switcher.dart';
 export 'src/widgets/language_switcher.dart';
@@ -29,7 +34,9 @@ export 'src/widgets/tasbih_counter.dart';
 export 'src/widgets/source_badge.dart';
 export 'src/widgets/section_header.dart';
 export 'src/widgets/arabic_text_block.dart';
+export 'src/widgets/ayah_end_marker.dart';
 export 'src/widgets/islamic_divider.dart';
+export 'src/widgets/quran_mushaf_text.dart';
 export 'src/widgets/reading_card.dart';
 export 'src/widgets/reading_top_bar.dart';
 export 'src/widgets/content_sidebar.dart';
