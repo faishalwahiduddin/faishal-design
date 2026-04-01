@@ -90,9 +90,9 @@ class QuranTextRepository {
 
   Future<String> _loadAsset() async {
     try {
-      return await rootBundle.loadString(_assetPath);
+      return await rootBundle.loadString(_packageAssetPath);
     } catch (_) {
-      return rootBundle.loadString(_packageAssetPath);
+      return rootBundle.loadString(_assetPath);
     }
   }
 
