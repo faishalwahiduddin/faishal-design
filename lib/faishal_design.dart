@@ -24,6 +24,7 @@ export 'src/widgets/app_scaffold.dart';
 export 'src/widgets/rtl_aware.dart';
 
 // Reading UI widgets
+export 'src/widgets/dzikir_counter.dart';
 export 'src/widgets/tasbih_counter.dart';
 export 'src/widgets/source_badge.dart';
 export 'src/widgets/section_header.dart';

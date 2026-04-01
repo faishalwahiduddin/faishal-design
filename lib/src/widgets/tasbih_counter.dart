@@ -6,6 +6,7 @@ import '../theme/app_colors.dart';
 /// Circular progress ring counter for tasbih/dzikir counting.
 /// Shows current/target with animated progress ring, completion glow,
 /// and optional reset button.
+@Deprecated('Use DzikirCounter instead')
 class TasbihCounter extends StatefulWidget {
   final int current;
   final int target;
