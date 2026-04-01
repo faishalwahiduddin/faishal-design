@@ -16,6 +16,7 @@ export 'utils/celebration_controller.dart';
 export 'utils/confetti_painter.dart';
 
 // Widgets
+export 'widgets/gamification_dashboard.dart';
 export 'widgets/achievement_card.dart';
 export 'widgets/challenge_card.dart';
 export 'widgets/comparison_bar.dart';
