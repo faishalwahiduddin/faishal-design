@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'app_spacing.dart';
 import 'app_typography.dart';
 
 class AppTheme {
@@ -102,4 +103,88 @@ class AppTheme {
       ),
     );
   }
+}
+
+ThemeData _buildLight(Color seed) {
+  return ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(seedColor: seed),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.md,
+      ),
+    ),
+    cardTheme: CardThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+      ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      height: 76,
+      labelTextStyle: WidgetStateProperty.all(AppTypography.bodyMedium),
+    ),
+    textTheme: TextTheme(
+      displayLarge: AppTypography.displayLarge,
+      headlineMedium: AppTypography.headlineMedium,
+      titleLarge: AppTypography.titleLarge,
+      bodyLarge: AppTypography.bodyLarge,
+      bodyMedium: AppTypography.bodyMedium,
+      labelLarge: AppTypography.labelLarge,
+    ),
+  );
+}
+
+ThemeData _buildDark(Color seed) {
+  return ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: seed,
+      brightness: Brightness.dark,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.md,
+      ),
+    ),
+    cardTheme: CardThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.md),
+      ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      height: 76,
+      labelTextStyle: WidgetStateProperty.all(AppTypography.bodyMedium),
+    ),
+    textTheme: TextTheme(
+      displayLarge: AppTypography.displayLarge,
+      headlineMedium: AppTypography.headlineMedium,
+      titleLarge: AppTypography.titleLarge,
+      bodyLarge: AppTypography.bodyLarge,
+      bodyMedium: AppTypography.bodyMedium,
+      labelLarge: AppTypography.labelLarge,
+    ),
+  );
+}
+
+/// Factory helpers for building per-app seeded [ThemeData].
+///
+/// Usage:
+/// ```dart
+/// final theme = AppThemeFactory.light(AppSeed.dzikir);
+/// ```
+extension AppThemeFactory on AppTheme {
+  static ThemeData light(AppSeed seed) => _buildLight(AppColors.seedFor(seed));
+  static ThemeData dark(AppSeed seed) => _buildDark(AppColors.seedFor(seed));
 }
