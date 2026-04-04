@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// Per-app identity seeds for Material 3 [ColorScheme.fromSeed].
+enum AppSeed {
+  appsHub,
+  portfolio,
+  mutabaah,
+  tilawah,
+  dzikir,
+  almatsurat,
+  doa,
+  rawatib,
+}
+
 abstract class AppColors {
   static const Color primary = Color(0xFF2E7D32); // Islamic green
   static const Color onPrimary = Color(0xFFFFFFFF);
@@ -49,4 +61,65 @@ abstract class AppColors {
   // Arabic text colors
   static const Color arabicTextLight = Color(0xFF1F1F1F);
   static const Color arabicTextDark = Color(0xFFF0F0F0);
+
+  // Per-app seed colors for Material 3 ColorScheme.fromSeed()
+  static const Color seedAppsHub = Color(0xFF2E7D32); // Islamic Green (brand)
+  static const Color seedPortfolio = Color(
+    0xFF2C3E7A,
+  ); // Slate Blue (professional)
+  static const Color seedMutabaah = Color(
+    0xFF1B5E20,
+  ); // Deep Emerald (growth/habits)
+  static const Color seedTilawah = Color(
+    0xFF004D40,
+  ); // Deep Teal (Quran/spirituality)
+  static const Color seedDzikir = Color(
+    0xFF283593,
+  ); // Deep Indigo (remembrance)
+  static const Color seedAlmatsurat = Color(
+    0xFFE65100,
+  ); // Deep Amber (dawn/dusk)
+  static const Color seedDoa = Color(0xFF1A237E); // Royal Blue (wisdom)
+  static const Color seedRawatib = Color(
+    0xFF33691E,
+  ); // Forest Green (prayer/nature)
+
+  /// Returns the seed [Color] for the given [AppSeed].
+  static Color seedFor(AppSeed seed) {
+    switch (seed) {
+      case AppSeed.appsHub:
+        return seedAppsHub;
+      case AppSeed.portfolio:
+        return seedPortfolio;
+      case AppSeed.mutabaah:
+        return seedMutabaah;
+      case AppSeed.tilawah:
+        return seedTilawah;
+      case AppSeed.dzikir:
+        return seedDzikir;
+      case AppSeed.almatsurat:
+        return seedAlmatsurat;
+      case AppSeed.doa:
+        return seedDoa;
+      case AppSeed.rawatib:
+        return seedRawatib;
+    }
+  }
+
+  // Status/feedback colors
+  static const Color successGreen = Color(0xFF4CAF50);
+  static const Color warningAmber = Color(0xFFFFB74D);
+  static const Color infoBlue = Color(0xFF2196F3);
+
+  // Hadith grade badge colors (for doa app)
+  static const Color gradeShahih = Color(0xFF4CAF50);
+  static const Color gradeHasan = Color(0xFF2196F3);
+  static const Color gradeDzaif = Color(0xFFF44336);
+  static const Color gradeMauquf = Color(0xFF9E9E9E);
+
+  // Layout tokens
+  static const Color dividerLight = Color(0xFFE0E0E0);
+  static const Color dividerDark = Color(0xFF424242);
+  static const Color overlayLight = Color(0x1F000000); // 12% black
+  static const Color overlayDark = Color(0x4DFFFFFF); // 30% white
 }

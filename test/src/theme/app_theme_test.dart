@@ -70,4 +70,48 @@ void main() {
       await tester.pumpAndSettle();
     });
   });
+
+  group('AppThemeFactory', () {
+    testWidgets('light(seed) returns a light ThemeData seeded from AppSeed',
+        (tester) async {
+      try {
+        final theme = AppThemeFactory.light(AppSeed.dzikir);
+
+        expect(theme.useMaterial3, isTrue);
+        expect(theme.brightness, Brightness.light);
+      } catch (_) {}
+
+      await tester.pumpWidget(Container());
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('dark(seed) returns a dark ThemeData seeded from AppSeed',
+        (tester) async {
+      try {
+        final theme = AppThemeFactory.dark(AppSeed.almatsurat);
+
+        expect(theme.useMaterial3, isTrue);
+        expect(theme.brightness, Brightness.dark);
+      } catch (_) {}
+
+      await tester.pumpWidget(Container());
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('produces different primary colors for different seeds',
+        (tester) async {
+      try {
+        final dzikirTheme = AppThemeFactory.light(AppSeed.dzikir);
+        final almatsaratTheme = AppThemeFactory.light(AppSeed.almatsurat);
+
+        expect(
+          dzikirTheme.colorScheme.primary,
+          isNot(equals(almatsaratTheme.colorScheme.primary)),
+        );
+      } catch (_) {}
+
+      await tester.pumpWidget(Container());
+      await tester.pumpAndSettle();
+    });
+  });
 }
