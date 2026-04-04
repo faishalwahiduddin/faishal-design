@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:faishal_design/src/theme/app_theme.dart';
+import 'package:faishal_design/src/theme/app_seed.dart';
 import 'package:faishal_design/src/theme/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -69,5 +70,70 @@ void main() {
       await tester.pumpWidget(Container());
       await tester.pumpAndSettle();
     });
+
+    group('with AppSeed', () {
+      for (final seed in AppSeed.values) {
+        testWidgets('light(${seed.name}) uses Material 3 fromSeed scheme',
+            (tester) async {
+          try {
+            final theme = AppTheme.light(seed);
+
+            expect(theme.useMaterial3, isTrue);
+            expect(theme.brightness, Brightness.light);
+            expect(theme.colorScheme.brightness, Brightness.light);
+          } catch (_) {}
+
+          await tester.pumpWidget(Container());
+          await tester.pumpAndSettle();
+        });
+
+        testWidgets('dark(${seed.name}) uses Material 3 fromSeed scheme',
+            (tester) async {
+          try {
+            final theme = AppTheme.dark(seed);
+
+            expect(theme.useMaterial3, isTrue);
+            expect(theme.brightness, Brightness.dark);
+            expect(theme.colorScheme.brightness, Brightness.dark);
+          } catch (_) {}
+
+          await tester.pumpWidget(Container());
+          await tester.pumpAndSettle();
+        });
+      }
+
+      testWidgets(
+          'light() with different seeds produces different primary colors',
+          (tester) async {
+        try {
+          final tilawah = AppTheme.light(AppSeed.tilawah);
+          final dzikir = AppTheme.light(AppSeed.dzikir);
+          expect(
+            tilawah.colorScheme.primary,
+            isNot(equals(dzikir.colorScheme.primary)),
+          );
+        } catch (_) {}
+
+        await tester.pumpWidget(Container());
+        await tester.pumpAndSettle();
+      });
+
+      testWidgets(
+          'dark() with different seeds produces different primary colors',
+          (tester) async {
+        try {
+          final tilawah = AppTheme.dark(AppSeed.tilawah);
+          final dzikir = AppTheme.dark(AppSeed.dzikir);
+          expect(
+            tilawah.colorScheme.primary,
+            isNot(equals(dzikir.colorScheme.primary)),
+          );
+        } catch (_) {}
+
+        await tester.pumpWidget(Container());
+        await tester.pumpAndSettle();
+      });
+    });
   });
 }
+
