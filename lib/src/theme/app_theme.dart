@@ -15,10 +15,33 @@ class AppTheme {
         onSurface: AppColors.onSurfaceLight,
       ),
       scaffoldBackgroundColor: AppColors.backgroundLight,
+      appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.backgroundLight,
+        foregroundColor: AppColors.onSurfaceLight,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.surfaceLight,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
+      ),
       cardTheme: CardThemeData(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 76,
+        labelTextStyle: WidgetStateProperty.all(AppTypography.bodyMedium),
       ),
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge,
@@ -43,10 +66,31 @@ class AppTheme {
         onSurface: AppColors.onSurfaceDark,
       ),
       scaffoldBackgroundColor: AppColors.backgroundDark,
+      appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.surfaceDark,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
+      ),
       cardTheme: CardThemeData(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 76,
+        labelTextStyle: WidgetStateProperty.all(AppTypography.bodyMedium),
       ),
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge,

@@ -15,13 +15,13 @@ class ThemeNotifier extends Notifier<ThemeMode> {
       if (savedThemeMode != null) {
         return ThemeMode.values.firstWhere(
           (e) => e.toString() == savedThemeMode,
-          orElse: () => ThemeMode.system,
+          orElse: () => ThemeMode.light,
         );
       }
     } catch (e) {
       // Handle the case where the provider isn't yet overridden, e.g. tests
     }
-    return ThemeMode.system;
+    return ThemeMode.light;
   }
 
   Future<void> setThemeMode(ThemeMode themeMode) async {
@@ -32,8 +32,6 @@ class ThemeNotifier extends Notifier<ThemeMode> {
 
   Future<void> toggleTheme() async {
     final currentMode = state;
-    // In system mode, assuming toggle defaults to dark first if currently system
-    // The test expects light mode to toggle to dark mode, and system mode is default.
     final newMode = currentMode == ThemeMode.dark
         ? ThemeMode.light
         : ThemeMode.dark;

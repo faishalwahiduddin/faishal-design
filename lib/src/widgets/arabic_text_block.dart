@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_typography.dart';
 
 /// RTL Arabic text block with Amiri font, configurable scale,
 /// and proper line height for reading views.
@@ -29,7 +29,7 @@ class ArabicTextBlock extends StatelessWidget {
       child: Text(
         text,
         textAlign: textAlign,
-        style: GoogleFonts.amiri(
+        style: AppTypography.arabicStyle(
           fontSize: baseFontSize * fontScale,
           height: 2.2,
           color: textColor,

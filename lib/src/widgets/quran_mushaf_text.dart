@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../quran/quran_passage.dart';
+import '../theme/app_typography.dart';
 import 'ayah_end_marker.dart';
 
 class QuranMushafText extends StatelessWidget {
@@ -36,7 +36,7 @@ class QuranMushafText extends StatelessWidget {
               if (showAyahMarkers)
                 TextSpan(
                   text: '${AyahEndMarker.buildLabel(ayah.ayahNumber)} ',
-                  style: GoogleFonts.amiri(
+                  style: AppTypography.arabicStyle(
                     fontSize: (baseFontSize * fontScale) * 0.72,
                     height: 1.8,
                     color: markerColor,
@@ -45,7 +45,7 @@ class QuranMushafText extends StatelessWidget {
                 ),
             ],
           ],
-          style: GoogleFonts.amiri(
+          style: AppTypography.arabicStyle(
             fontSize: baseFontSize * fontScale,
             height: 2,
             color: textColor,

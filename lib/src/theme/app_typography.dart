@@ -46,6 +46,20 @@ class AppTypography {
     height: 2.2,
   );
 
+  static TextStyle arabicStyle({
+    double fontSize = 30,
+    double height = 2.1,
+    FontWeight fontWeight = FontWeight.w400,
+    Color? color,
+  }) {
+    return GoogleFonts.amiri(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: height,
+      color: color,
+    );
+  }
+
   static TextStyle get sectionHeader => GoogleFonts.poppins(
     fontSize: 13,
     fontWeight: FontWeight.w600,

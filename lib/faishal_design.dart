@@ -4,6 +4,7 @@ export 'src/theme/app_theme.dart';
 
 // Gamification System
 export 'src/gamification/gamification.dart';
+export 'src/gamification/services/share_image_builder.dart';
 
 // Providers
 export 'src/providers/shared_preferences_provider.dart';
