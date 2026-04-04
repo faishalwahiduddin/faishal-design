@@ -49,4 +49,21 @@ abstract class AppColors {
   // Arabic text colors
   static const Color arabicTextLight = Color(0xFF1F1F1F);
   static const Color arabicTextDark = Color(0xFFF0F0F0);
+
+  // Status / feedback semantic tokens
+  static const Color successGreen = Color(0xFF4CAF50);
+  static const Color warningAmber = Color(0xFFFFB74D);
+  static const Color infoBlue = Color(0xFF2196F3);
+
+  // Hadith grade badge colors (doa app)
+  static const Color gradeShahih = Color(0xFF4CAF50);
+  static const Color gradeHasan = Color(0xFF2196F3);
+  static const Color gradeDzaif = Color(0xFFF44336);
+  static const Color gradeMauquf = Color(0xFF9E9E9E);
+
+  // Layout tokens
+  static const Color dividerLight = Color(0xFFE0E0E0);
+  static const Color dividerDark = Color(0xFF424242);
+  static const Color overlayLight = Color(0x1F000000); // 12% black
+  static const Color overlayDark = Color(0x4DFFFFFF); // 30% white
 }
