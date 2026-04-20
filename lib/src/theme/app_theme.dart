@@ -1,30 +1,47 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'app_seed.dart';
 import 'app_typography.dart';
 
 class AppTheme {
-  static ThemeData light() {
+  /// Returns a light [ThemeData].
+  ///
+  /// When [seed] is provided, the color scheme is generated via
+  /// [ColorScheme.fromSeed], giving each app its unique identity while
+  /// maintaining Material 3 harmony.  When omitted, the default brand
+  /// palette from [AppColors] is used.
+  static ThemeData light([AppSeed? seed]) {
+    final colorScheme = seed != null
+        ? ColorScheme.fromSeed(
+            seedColor: seed.color,
+            brightness: Brightness.light,
+          )
+        : const ColorScheme.light(
+            primary: AppColors.primary,
+            onPrimary: AppColors.onPrimary,
+            secondary: AppColors.secondary,
+            surface: AppColors.surfaceLight,
+            error: AppColors.error,
+            onSurface: AppColors.onSurfaceLight,
+          );
+
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.light(
-        primary: AppColors.primary,
-        onPrimary: AppColors.onPrimary,
-        secondary: AppColors.secondary,
-        surface: AppColors.surfaceLight,
-        error: AppColors.error,
-        onSurface: AppColors.onSurfaceLight,
-      ),
-      scaffoldBackgroundColor: AppColors.backgroundLight,
-      appBarTheme: const AppBarTheme(
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor:
+          seed == null ? AppColors.backgroundLight : null,
+      appBarTheme: AppBarTheme(
         centerTitle: false,
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: AppColors.backgroundLight,
-        foregroundColor: AppColors.onSurfaceLight,
+        backgroundColor:
+            seed == null ? AppColors.backgroundLight : null,
+        foregroundColor:
+            seed == null ? AppColors.onSurfaceLight : null,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surfaceLight,
+        fillColor: seed == null ? AppColors.surfaceLight : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
@@ -54,26 +71,40 @@ class AppTheme {
     );
   }
 
-  static ThemeData dark() {
+  /// Returns a dark [ThemeData].
+  ///
+  /// When [seed] is provided, the color scheme is generated via
+  /// [ColorScheme.fromSeed] with [Brightness.dark], giving each app its
+  /// unique dark-mode identity.  When omitted, the default dark palette
+  /// from [AppColors] is used.
+  static ThemeData dark([AppSeed? seed]) {
+    final colorScheme = seed != null
+        ? ColorScheme.fromSeed(
+            seedColor: seed.color,
+            brightness: Brightness.dark,
+          )
+        : const ColorScheme.dark(
+            primary: AppColors.primaryDark,
+            onPrimary: AppColors.onPrimaryDark,
+            secondary: AppColors.secondaryDark,
+            surface: AppColors.surfaceDark,
+            error: AppColors.errorDark,
+            onSurface: AppColors.onSurfaceDark,
+          );
+
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.primaryDark,
-        onPrimary: AppColors.onPrimaryDark,
-        secondary: AppColors.secondaryDark,
-        surface: AppColors.surfaceDark,
-        error: AppColors.errorDark,
-        onSurface: AppColors.onSurfaceDark,
-      ),
-      scaffoldBackgroundColor: AppColors.backgroundDark,
-      appBarTheme: const AppBarTheme(
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor:
+          seed == null ? AppColors.backgroundDark : null,
+      appBarTheme: AppBarTheme(
         centerTitle: false,
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surfaceDark,
+        fillColor: seed == null ? AppColors.surfaceDark : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
