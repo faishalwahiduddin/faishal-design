@@ -23,6 +23,8 @@ export 'src/quran/quran_text_repository.dart';
 // Widgets
 export 'src/widgets/theme_switcher.dart';
 export 'src/widgets/language_switcher.dart';
+export 'src/widgets/error_state_widget.dart';
+export 'src/widgets/loading_state_widget.dart';
 
 // Layout & Scaffold
 export 'src/widgets/responsive_layout.dart';
