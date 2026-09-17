@@ -71,7 +71,7 @@ class ShareImageBuilder {
         name: filename,
       );
 
-      await Share.shareXFiles([xFile], text: text);
+      await SharePlus.instance.share(ShareParams(files: [xFile], text: text));
     } catch (e) {
       debugPrint('Error sharing image: $e');
       rethrow;

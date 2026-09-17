@@ -49,8 +49,6 @@ class _DzikirCounterState extends State<DzikirCounter>
   late AnimationController _glowController;
 
   bool get _completed => widget.current >= widget.target;
-  double get _progress =>
-      widget.target > 0 ? (widget.current / widget.target).clamp(0.0, 1.0) : 0;
 
   @override
   void initState() {

@@ -19,7 +19,9 @@ dependencies:
   riverpod_annotation: ^4.0.2
   json_annotation: ^4.11.0
   freezed_annotation: ^3.0.0
-  share_plus: ">=10.0.0 <13.0.0"
+  # SharePlus.instance.share(ShareParams(...)) baru ada sejak 10.1.0; 10.0.x hanya
+  # punya Share.shareXFiles yang sudah deprecated.
+  share_plus: ">=10.1.0 <13.0.0"
   web: ^1.1.1
   intl: ^0.20.2
   state_notifier: ^1.0.0
