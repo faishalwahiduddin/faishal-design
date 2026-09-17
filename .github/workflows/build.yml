@@ -1,0 +1,69 @@
+name: Build (consumer smoke)
+
+# Paket ini tidak punya artefak sendiri: tidak ada main(), tidak ada direktori
+# platform, jadi tidak ada APK/AAB/IPA untuk dibangun. Yang bisa rusak adalah
+# kemampuannya ikut ter-compile di dalam app sungguhan — dan per 2026-09-17 tidak
+# ada satu pun app di ~/projects yang memakainya, jadi tidak ada yang membuktikan
+# itu. Job ini membangun app konsumen sekali-pakai yang mengimpor barrel paket dan
+# meng-compile-nya untuk web; kegagalan compile mana pun di pohon library yang
+# diekspor akan muncul di sini.
+#
+# Ubuntu saja (billing 1x). Tidak dipin ke branch "build" seperti repo app fleet:
+# di sana branch itu ada untuk menahan runner macOS yang mahal, yang tidak dipakai
+# di sini.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  FLUTTER_VERSION: "3.44.8"
+
+jobs:
+  consumer:
+    name: Compile into a throwaway consumer app (web)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: faishal_design
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Scaffold consumer app
+        run: flutter create --platforms=web consumer
+
+      - name: Point it at this checkout
+        working-directory: consumer
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          p = pathlib.Path("pubspec.yaml")
+          t = p.read_text()
+          anchor = "dependencies:\n  flutter:\n    sdk: flutter\n"
+          assert anchor in t, "pubspec.yaml layout changed; update this step"
+          p.write_text(t.replace(
+              anchor,
+              anchor + "  faishal_design:\n    path: ../faishal_design\n", 1))
+          pathlib.Path("lib/main.dart").write_text(
+              "import 'package:flutter/material.dart';\n"
+              "import 'package:faishal_design/faishal_design.dart';\n"
+              "\n"
+              "void main() => runApp(\n"
+              "  MaterialApp(theme: AppTheme.light(), home: const Scaffold(body: SizedBox())),\n"
+              ");\n")
+          PY
+
+      - name: Resolve
+        working-directory: consumer
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: consumer
+        run: flutter build web --release

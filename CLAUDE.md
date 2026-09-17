@@ -1,7 +1,10 @@
 # faishal_design — Shared Flutter Design Package
 
+> Full context and the **Mulai di sini (60 detik)** block: [AGENTS.md](./AGENTS.md).
+> This file adds architecture and convention detail; it does not replace it.
+
 ## Overview
-Shared Dart package providing consistent Material 3 theme, widgets, and utilities across all faishal.id Flutter apps. Referenced as a git dependency by: dzikir, almatsurat, mutabaah, doa, apps, portfolio.
+Shared Dart package providing consistent Material 3 theme, widgets, and utilities for the faishal.id Flutter fleet. **No repo in `~/projects` references it as of 2026-09-17** — see [README.md](./README.md) § Status pemakaian. The older list (dzikir, almatsurat, mutabaah, doa, apps, portfolio) is out of date.
 
 ## Tech Stack
 - Flutter 3.x / Dart

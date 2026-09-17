@@ -1,0 +1,48 @@
+name: Analyze + Test
+
+# Gerbang murah (ubuntu, billing 1x) untuk paket ini. Jalan di tiap push supaya
+# regresi ketahuan pada push yang menyebabkannya, bukan saat rilis.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  FLUTTER_VERSION: "3.44.8"
+
+jobs:
+  verify:
+    name: Analyze + Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - run: flutter pub get
+
+      # Sumber hasil generate ikut di-commit, jadi codegen harus dijalankan ulang
+      # dan pohon kerja harus tetap bersih — *.freezed.dart / *.g.dart yang basi
+      # adalah kegagalan nyata yang tidak bersuara.
+      - run: dart run build_runner build
+      - name: Fail if generated sources are stale
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Generated sources are out of date. Run 'dart run build_runner build' and commit the result."
+            git diff --stat
+            exit 1
+          fi
+
+      # Dibatasi ke `lib test` dengan sengaja: `skills/` adalah symlink ke
+      # ../.agents/skills/ (materi skill agen, bukan sumber paket). Contoh kodenya
+      # memang tidak lengkap, dan `dart analyze` polos melaporkan 47 temuan yang 44
+      # di antaranya berasal dari sana.
+      - run: dart analyze lib test
+
+      - run: flutter test
