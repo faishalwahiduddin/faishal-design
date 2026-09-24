@@ -20,7 +20,12 @@ void main() {
             icon: Icons.star,
             tier: AchievementTier.bronze,
             isUnlocked: true,
-            unlockDate: DateTime(2023, 10, 1),
+            // UTC, not a naive local DateTime(2023, 10, 1) -- a naive local
+            // value shifts with the test runner's TZ env (e.g. at
+            // TZ=Asia/Makassar, .toUtc() lands on Sep 30, and formatWibDate
+            // would then show 30/09/2023 instead of the expected 01/10).
+            // 05:00Z = 12:00 WIB, comfortably Oct 1 regardless of TZ.
+            unlockDate: DateTime.utc(2023, 10, 1, 5),
           ),
         ),
       );
