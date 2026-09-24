@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/achievement_tier.dart';
+import '../../utils/wib_time.dart';
 
 class AchievementCard extends StatelessWidget {
   final String title;
@@ -77,7 +78,11 @@ class AchievementCard extends StatelessWidget {
                     if (isUnlocked && unlockDate != null) ...[
                       const SizedBox(height: 8),
                       Text(
-                        'Unlocked: ${unlockDate!.toLocal().toString().split(' ')[0]}',
+                        // formatWibDate(), not the device's ambient zone --
+                        // unlockDate is a UTC instant (achievement_checker.dart);
+                        // rendering it in the reader's own zone instead of WIB
+                        // would show a different date near midnight.
+                        'Unlocked: ${formatWibDate(unlockDate!)}',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: badgeColor,
                           fontWeight: FontWeight.bold,

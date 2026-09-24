@@ -46,7 +46,10 @@ class AchievementChecker {
             (a) => a.id == achievementId,
           );
           final unlockedAchievement = achievement.copyWith(
-            unlockedAt: DateTime.now(),
+            // .toUtc(): unlockedAt is serialized to JSON and may cross
+            // devices with a consuming app's own sync/export -- a naive
+            // local string here would be ambiguous when read elsewhere.
+            unlockedAt: DateTime.now().toUtc(),
           );
           newlyUnlocked.add(unlockedAchievement);
           unlocked.add(unlockedAchievement);

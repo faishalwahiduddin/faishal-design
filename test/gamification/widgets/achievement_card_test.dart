@@ -27,7 +27,9 @@ void main() {
 
       expect(find.text('First Step'), findsOneWidget);
       expect(find.text('Read for 1 day'), findsOneWidget);
-      expect(find.text('Unlocked: 2023-10-01'), findsOneWidget);
+      // dd/MM/yyyy via formatWibDate(), not the old raw ISO substring --
+      // see the WIB-time commits on this card.
+      expect(find.text('Unlocked: 01/10/2023'), findsOneWidget);
       expect(find.byIcon(Icons.star), findsOneWidget);
     });
 
