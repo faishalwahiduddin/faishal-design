@@ -67,6 +67,11 @@ dart run build_runner build        # Generate code
 - **Typography**: Use `AppTypography` — never create TextStyle inline
 - **Theme**: Access via `Theme.of(context)` — never reference AppTheme directly in consumer code
 - **Providers**: Use `@riverpod` annotation for code generation
+- **WIB time (`~/projects/docs/standards.md` §TZ)**: `src/utils/wib_time.dart` (exported via the
+  barrel) is the one place to format an instant as WIB — `AchievementModel.unlockedAt` is written
+  UTC (`achievement_checker.dart`) and displayed with `formatWibDate()` (`achievement_card.dart`).
+  Don't add `DateFormat`/`.toLocal()` for a real instant elsewhere; see the reasoned allowlist in
+  `test/timezone_discipline_test.dart` for the one legitimately device-local exception
 
 ## Design System Spec
 
