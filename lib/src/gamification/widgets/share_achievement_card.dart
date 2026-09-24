@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../utils/wib_time.dart';
 import '../models/achievement_model.dart';
 import 'achievement_card.dart';
 import 'share_card_template.dart';
@@ -67,7 +68,12 @@ class ShareAchievementCard extends StatelessWidget {
           const SizedBox(height: 120),
           if (achievement.unlockedAt != null)
             Text(
-              'Unlocked on ${DateFormat.yMMMd().format(achievement.unlockedAt!)}',
+              // toWib() first -- unlockedAt is a UTC instant
+              // (achievement_checker.dart); formatting it in the reader's
+              // own zone instead of WIB would show a different date for an
+              // unlock between 00:00-06:59 WIB, inconsistent with the
+              // AchievementCard rendered on the same screen.
+              'Unlocked on ${DateFormat.yMMMd().format(toWib(achievement.unlockedAt!))}',
               style: TextStyle(
                 fontSize: 32,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
