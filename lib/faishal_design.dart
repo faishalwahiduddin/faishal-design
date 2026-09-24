@@ -14,6 +14,7 @@ export 'src/providers/locale_provider.dart';
 // Utils
 export 'src/utils/json_loader.dart';
 export 'src/utils/seo_utils.dart';
+export 'src/utils/wib_time.dart';
 
 // Quran
 export 'src/quran/quran_reference.dart';
