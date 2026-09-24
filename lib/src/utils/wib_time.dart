@@ -66,15 +66,35 @@ DateTime? parseUtc(Object? raw) {
     }
   }
 
+  // Bagian tanggal WAJIB persis YYYY-MM-DD di awal string -- bukan opsional.
+  // Tanpa ini, bentuk yang tidak diawali begitu (mis. "20260115T100000"
+  // format basic ISO tanpa tanda hubung, atau "+002026-01-15T..." format
+  // tahun-diperluas) lolos tanpa validasi kalender lalu diam-diam diterima
+  // DateTime.tryParse bawaan Dart di bawah -- keduanya BUKAN bentuk yang
+  // didukung modul ini.
   final dateHead = RegExp(r'^(\d{4})-(\d{2})-(\d{2})').firstMatch(text);
-  if (dateHead != null) {
-    final hy = int.parse(dateHead.group(1)!);
-    final hmo = int.parse(dateHead.group(2)!);
-    final hd = int.parse(dateHead.group(3)!);
-    final headCheck = DateTime.utc(hy, hmo, hd);
-    if (headCheck.year != hy || headCheck.month != hmo || headCheck.day != hd) {
-      return null;
-    }
+  if (dateHead == null) return null;
+  final hy = int.parse(dateHead.group(1)!);
+  final hmo = int.parse(dateHead.group(2)!);
+  final hd = int.parse(dateHead.group(3)!);
+  final headCheck = DateTime.utc(hy, hmo, hd);
+  if (headCheck.year != hy || headCheck.month != hmo || headCheck.day != hd) {
+    return null;
+  }
+
+  // Jam/menit/detik divalidasi eksplisit SEBELUM DateTime.tryParse --
+  // DateTime.tryParse bawaan Dart menggulirkan overflow diam-diam (mis.
+  // "T25:00" -> jam 01:00 hari berikutnya, "T10:61" -> jam 11:01), dan
+  // tanpa cek ini di sinilah nilai yang salah lolos sebagai instant yang
+  // tampak valid.
+  final timeHead = RegExp(
+    r'^\d{4}-\d{2}-\d{2}[T ](\d{2}):(\d{2})(?::(\d{2}))?',
+  ).firstMatch(text);
+  if (timeHead != null) {
+    final hh = int.parse(timeHead.group(1)!);
+    final mm = int.parse(timeHead.group(2)!);
+    final ss = timeHead.group(3) != null ? int.parse(timeHead.group(3)!) : 0;
+    if (hh > 23 || mm > 59 || ss > 59) return null;
   }
 
   var normalized = text;
@@ -201,7 +221,10 @@ String formatWibServerDate(String raw) {
     final parts = raw.split('-');
     return parts.length == 3 ? '${parts[2]}/${parts[1]}/${parts[0]}' : raw;
   }
-  final parsed = DateTime.tryParse(raw);
+  // parseUtc(), bukan DateTime.tryParse() bawaan -- string naif di sini
+  // berarti UTC per kontrak, bukan zona perangkat, dan parseUtc() juga
+  // menolak tanggal kalender mustahil alih-alih menggulirkannya.
+  final parsed = parseUtc(raw);
   return parsed == null ? raw : formatWibDateTime(parsed);
 }
 
