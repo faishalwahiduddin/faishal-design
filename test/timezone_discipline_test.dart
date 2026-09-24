@@ -35,7 +35,7 @@ final _forbidden = <_ForbiddenPattern>[
         'dari lib/src/utils/wib_time.dart',
   ),
   _ForbiddenPattern(
-    RegExp(r'DateFormat\s*\('),
+    RegExp(r'DateFormat(\.\w+)?\s*\('),
     'DateFormat dari package:intl merender di zona perangkat kecuali '
         'dipanggil dari dalam wib_time.dart -- pakai format*Wib()',
   ),
@@ -68,6 +68,13 @@ final _allowlist = <_AllowlistEntry>[
     '.toUtc() dipanggil tepat di baris ini -- sudah instant UTC yang benar '
         'per kontrak poin 1, ditampilkan lewat formatWibDate() di '
         'achievement_card.dart',
+  ),
+  _AllowlistEntry(
+    'lib/src/gamification/widgets/share_achievement_card.dart',
+    RegExp(r"'Unlocked on \$\{DateFormat\.yMMMd\(\)\.format\(toWib\(achievement\.unlockedAt!\)\)\}',"),
+    'toWib() dipanggil tepat di baris ini sebelum DateFormat -- unlockedAt '
+        'adalah instant UTC, di-render di WIB dulu, bukan zona perangkat '
+        'pembaca',
   ),
   _AllowlistEntry(
     'lib/src/gamification/widgets/muhasabah_dialog.dart',
@@ -148,6 +155,7 @@ void main() {
       'final createdAt = DateTime.now();',
       'final jam = raw.toLocal();',
       "DateFormat('dd/MM/yyyy').format(instant);",
+      'DateFormat.yMMMd().format(instant);',
       "final d = DateTime.parse(json['created_at']);",
       'final d = DateTime.tryParse(raw.toString());',
     ];
