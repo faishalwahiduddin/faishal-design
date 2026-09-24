@@ -108,6 +108,31 @@ void main() {
       expect(parseUtc('bukan tanggal'), isNull);
       expect(parseUtc(''), isNull);
     });
+
+    test(
+      'REGRESI: overflow jam/menit eksplisit ditolak, bukan digulirkan ke '
+      'hari/jam berikutnya',
+      () {
+        // Bug asli: DateTime.tryParse bawaan Dart menggulirkan "T25:00" jadi
+        // 01:00 hari berikutnya dan "T10:61" jadi 11:01, diam-diam.
+        expect(parseUtc('2026-01-15T25:00:00Z'), isNull);
+        expect(parseUtc('2026-01-15T10:61:00Z'), isNull);
+        expect(parseUtc('2026-01-15T10:00:61Z'), isNull);
+      },
+    );
+
+    test(
+      'REGRESI: string yang tidak diawali YYYY-MM-DD persis ditolak, bukan '
+      'diam-diam diterima kelonggaran DateTime.tryParse',
+      () {
+        // "20260115T100000" adalah bentuk ISO basic (tanpa tanda hubung) --
+        // Dart menerimanya, tapi modul ini hanya mendukung bentuk extended.
+        expect(parseUtc('20260115T100000'), isNull);
+        expect(parseUtc('20260115T100000Z'), isNull);
+        // Format tahun-diperluas ("+002026") juga bukan bentuk yang didukung.
+        expect(parseUtc('+002026-01-15T10:00:00Z'), isNull);
+      },
+    );
   });
 
   group('wibInputToUtc — kasus probe wajib', () {
@@ -132,10 +157,37 @@ void main() {
       expect(wibInputToUtc('2026-01-15T10:00junk'), isNull);
     });
 
+    test(
+      'REGRESI: jam 24 ditolak juga di jalur BER-OFFSET, bukan hanya jalur '
+      'naif -- keduanya harus konsisten',
+      () {
+        expect(wibInputToUtc('2026-01-15T24:00+07:00'), isNull);
+        expect(wibInputToUtc('2026-01-15T24:00Z'), isNull);
+      },
+    );
+
     test('round-trip wibInputToUtc <-> utcToWibInput', () {
       final utc = wibInputToUtc('2026-01-15T10:00');
       final instant = parseUtc(utc)!;
       expect(utcToWibInput(instant), '2026-01-15T10:00');
+    });
+  });
+
+  group('formatWibServerDate', () {
+    test('date-only ditampilkan dd/MM/yyyy tanpa konversi zona', () {
+      expect(formatWibServerDate('2026-01-15'), '15/01/2026');
+    });
+
+    test('instant lengkap diurai lewat parseUtc (naif = UTC), lalu WIB', () {
+      // 2026-01-15T20:00:00 naif = UTC 20:00 = WIB 16 Jan 03:00.
+      expect(
+        formatWibServerDate('2026-01-15T20:00:00'),
+        '16/01/2026 03:00 WIB',
+      );
+    });
+
+    test('instant tanggal mustahil fallback ke raw, bukan tanggal digulirkan', () {
+      expect(formatWibServerDate('2026-02-30T10:00:00Z'), '2026-02-30T10:00:00Z');
     });
   });
 
