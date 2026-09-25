@@ -17,28 +17,13 @@ Tanpa design system terpusat, setiap aplikasi akan mengembangkan tema dan kompon
 
 ### 4.1 MVP Features
 
-#### Theme System
-- Material 3 ThemeData dengan light dan dark mode
-- Color scheme: Islamic green (#2E7D32) sebagai primary
-- Typography: Poppins (Latin), Amiri (Arabic)
-- Automatic system theme detection
-- Manual toggle dengan persistence via SharedPreferences
-
-#### Widget Library
-- **LanguageSwitcher**: Dropdown/bottom sheet pemilih bahasa dengan flag icon
-- **ThemeSwitcher**: Toggle button dark/light mode (sun/moon icon)
-- **ResponsiveLayout**: Builder widget dengan breakpoints mobile/tablet/desktop
-- **RtlAware**: Wrapper yang mendeteksi locale dan set Directionality
-- **AppScaffold**: Common scaffold dengan AppBar, drawer/rail navigation, theme & language controls
-
-#### Localization
-- SharedLocalizationDelegate untuk 7 bahasa: id (default), en, ar, jv, su, zh, ja
-- Bahasa Indonesia sebagai default
-- Fallback ke Bahasa Indonesia jika terjemahan tidak tersedia
-
-#### Utilities
-- **JsonLoader**: Helper untuk load dan parse JSON dari assets
-- **SeoUtils**: Web SEO meta tag helpers (title, description, OG tags)
+| Kode | Fitur | SP | Progress | Status Uji | Prasyarat | Deskripsi | Lokasi kode |
+|---|---|:---:|:---:|:---:|:---:|---|---|
+| `US-001` | **Theme System** | 3 SP | done | tested (unit) | — | Material 3 ThemeData Islamic green, light/dark | `lib/src/theme/` |
+| `US-002` | **Widget Library** | 5 SP | done | tested (unit) | `US-001` | LanguageSwitcher, ThemeSwitcher, ResponsiveLayout, RtlAware | `lib/src/widgets/` |
+| `US-003` | **Localization Delegate** | 3 SP | done | tested (unit) | — | SharedLocalizationDelegate untuk 7+ bahasa | `lib/src/l10n/` |
+| `US-004` | **Utilities** | 2 SP | done | tested (unit) | — | JsonLoader dan SeoUtils web meta tag helpers | `lib/src/utils/` |
+| `US-005` | **Gallery & Docs** | 2 SP | done | tested (unit) | `US-002` | Komponen dokumentasi dan contoh penggunaan widget | `example/` |
 
 ### 4.2 Future Features
 - Animasi transisi custom antar halaman
