@@ -179,10 +179,10 @@ void main() {
 
 ## 11. Implementation Phases
 
-| Phase | Deliverable | Priority |
-|-------|------------|----------|
-| 1 | Theme (colors, typography, ThemeData) | P0 |
-| 2 | ThemeSwitcher + LanguageSwitcher widgets | P0 |
-| 3 | ResponsiveLayout + RtlAware widgets | P0 |
-| 4 | AppScaffold + JsonLoader + SeoUtils | P1 |
-| 5 | Tests + documentation | P1 |
+| Kode | Fitur | SP | Progress | Status Uji | Deskripsi |
+|---|---|:---:|:---:|:---:|---|
+| `US-001` | **1** | 2 SP | done | tested (unit) | Theme (colors, typography, ThemeData) |
+| `US-002` | **2** | 2 SP | done | tested (unit) | ThemeSwitcher + LanguageSwitcher widgets |
+| `US-003` | **3** | 2 SP | done | tested (unit) | ResponsiveLayout + RtlAware widgets |
+| `US-004` | **4** | 2 SP | done | tested (unit) | AppScaffold + JsonLoader + SeoUtils |
+| `US-005` | **5** | 2 SP | done | tested (unit) | Tests + documentation |
