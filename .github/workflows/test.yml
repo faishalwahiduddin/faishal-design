@@ -4,10 +4,6 @@ name: Analyze + Test
 # regresi ketahuan pada push yang menyebabkannya, bukan saat rilis.
 on:
   workflow_dispatch:
-  push:
-    branches: ["main", "develop"]
-  pull_request:
-    branches: ["main"]
 
 env:
   FLUTTER_VERSION: "3.44.8"
