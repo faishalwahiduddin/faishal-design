@@ -59,3 +59,13 @@ pubspec.lock
 # Coverage
 coverage/
 
+
+# E2E & QA test artifacts
+test-results/
+playwright-report/
+*.trace.zip
+
+# Agent session & cache directories
+.omc/
+.sisyphus/
+.gstack/
