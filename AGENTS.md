@@ -74,8 +74,13 @@ dart run build_runner build        # Generate code
   Don't add `DateFormat`/`.toLocal()` for a real instant elsewhere; see the reasoned allowlist in
   `test/timezone_discipline_test.dart` for the one legitimately device-local exception
 
-## Design System Spec
+### Design Systems
 
+Dokumentasi lengkap sistem desain `faishal_design` tersedia di [`docs/reference/design-system/`](./docs/reference/design-system/):
+- **Foundations**: [`docs/reference/design-system/foundations.md`](./docs/reference/design-system/foundations.md) (palet warna Islamic Green `AppColors`, tipografi Poppins/Amiri `AppTypography`, radius, breakpoints).
+- **Components**: [`docs/reference/design-system/components.md`](./docs/reference/design-system/components.md) (bacaan widget, gamifikasi, share card, dialog, RTL, tombol).
+
+Spesifikasi dasar:
 ```
 Primary:    #2E7D32 (Islamic green)
 OnPrimary:  #FFFFFF
@@ -85,3 +90,4 @@ Font Latin: Poppins (Google Fonts)
 Font Arab:  Amiri (Google Fonts)
 Breakpoint: mobile <600dp | tablet 600-1024dp | desktop >1024dp
 ```
+
